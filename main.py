@@ -1,6 +1,9 @@
 import tkinter as tk
 import json
 import yaml
+import parser
+from tkinter import filedialog
+
 
 class StructEdit:
     def __init__(self, json_data=None, yaml_data=None):
@@ -12,9 +15,12 @@ class StructEdit:
 
         self.yaml_text = tk.Text(self.root)
         self.yaml_text.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True)
+        
+        self.file_menu = tk.Menu(menu)
+        self.menu.add_cascade(label="File", menu=file_menu)
+        self.file_menu.add_command(label="Open", command=open_file)
 
-        self.json_data = json_data or {}
-        self.yaml_data = yaml_data or {}
+        self.parser = parser.SchemaParser(open_file)
 
         self.load_data()
 
@@ -35,27 +41,13 @@ class StructEdit:
         self.yaml_data = yaml.load(self.yaml_text.get('1.0', tk.END), Loader=yaml.FullLoader)
 
         self.load_data()
+        
+    def open_file():
+        filename = filedialog.askopenfilename()
+        print(f"Selected file: {filename}")
 
 if __name__ == '__main__':
-    example_json = {
-        "name": "John Doe",
-        "age": 30,
-        "address": {
-            "street": "123 Main St",
-            "city": "Anytown",
-            "state": "CA",
-            "zip": "12345"
-        }
-    }
-
-    example_yaml = """
-    name: Jane Doe
-    age: 25
-    address:
-      street: 456 Elm St
-      city: Anycity
-      state: NY
-      zip: 54321
-    """
+    """TK Inter Main Menu"""
+    
 
     StructEdit(json_data=example_json, yaml_data=example_yaml)
