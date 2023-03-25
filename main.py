@@ -47,18 +47,18 @@ class StructEdit:
         print(f"Selected file: {filename}")
         
     def rec(self, o: object) -> type:
-    """Handy Type Checker and digs into object"""
-    if type(o) is list:
-        print("list", len(o))
-        for i in range(len(o)):
-            print("element", i)
-            if type(o[i]) is dict:
-                print(o[i])
-            else:
-                self.rec(o[i])
-    elif type(o) is dict:
-        for k, v in o.items():
-            self.rec(v)
+        """Handy Type Checker and digs into object"""
+        if type(o) is list:
+            print("list", len(o))
+            for i in range(len(o)):
+                print("element", i)
+                if type(o[i]) is dict:
+                    print(o[i])
+                else:
+                    self.rec(o[i])
+        elif type(o) is dict:
+            for k, v in o.items():
+                self.rec(v)
 
 if __name__ == '__main__':
     """TK Inter Main Menu"""
